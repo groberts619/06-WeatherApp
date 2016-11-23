@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="" ng-app="app">
+<head>
+	<meta charset="utf-8"> 
+	<title>Origin Weather App</title>
+	<!-- Using Angular-toastr CSS-->
+	<link rel="stylesheet" type="text/css" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+	<!-- Using Bootstrap CSS-->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+	<div class="container" ng-controller="WeatherController as home">	
+		<div class="panel">
+			<div class="panel-heading">
+				<div class="well">
+					<h1 class="text-default"><b>Origin Weather Application<b></h1>
+					<h4>Always know if you'll need an umbrella!</h4>
+				</div>
+				<div class="btn-group" role="group">	
+					<button type="button" class="btn btn-primary" ng-click="home.callWeatherApi('San Diego')">San Diego</button>
+					<button type="button" class="btn btn-primary" ng-click="home.callWeatherApi('New York')">New York</button>
+					<button type="button" class="btn btn-primary" ng-click="home.callWeatherApi('Washington D.C.')">Washington D.C.</button>
+					<button type="button" class="btn btn-primary" ng-click="home.callWeatherApi('London')">London</button>
+					<button type="button" class="btn btn-primary" ng-click="home.callWeatherApi('Tokyo')">Tokyo</button>
+				</div>
+				<div class="input-group">
+      				<input type="text" class="form-control" ng-model="home.input">
+      				<span class="input-group-btn">
+        				<button class="btn btn-default" ng-click="home.callWeatherApi(home.input)" type="button">Go!</button>
+      				</span>
+				</div>
+				<br>
+				 <div ng-hide="home.hidden">	
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">City Information</div>
+							<div class="panel-body">
+								<div class="row text-center" style="font-size: 200%">
+	                                <img class="img" ng-src="http://openweathermap.org/img/w/{{home.city.weather[0].icon}}.png" alt="Weather Icon">{{home.city.name}}
+	                            </div>
+								<div class="text-center"> <br/>Lat/Long: {{home.city.coord.lat}},{{home.city.coord.lon}}</div>
+								<hr>
+								<div class="col-md-4 text-center">Temperature(&#8457;)
+			                       <br/>{{home.city.main.temp}}&#8457;
+			                       <br/>
+			                       <br/>Lowest Temp(&#8457;)
+			                       <br/>{{home.city.main.temp_min}}&#8457;
+	                       		</div>
+	                       		<div class="col-md-4 text-center">Pressure
+			                       <br/>{{home.city.main.pressure}}
+			                       <br/>
+			                       <br/>Highest Temp(&#8457;)
+			                       <br/>{{home.city.main.temp_max}}&#8457;
+	                       		</div>
+	                       		<div class="col-md-4 text-center">Humidity
+			                       <br/>{{home.city.main.humidity}}%
+			                       <br/>
+			                       <br/>Wind Speed
+			                       <br/>{{home.city.wind.speed}}mph
+	                       		</div>
+	                       		<br/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						 <div class="panel panel-info">
+						 	<div class="panel-heading">Search History</div>
+						 	<div class="panel-body">
+						 		<table class="table table-striped">
+						 			<tr ng-repeat="search in home.searches" | limitTo: -5" ng-click="home.callWeatherApi(search.city)" style="cursor: pointer; cursor: hand;">
+	                               		<!--ng-repeat="search in home.searches"-->
+	                                    <td style="text-align: center; vertical-align: center;">{{search.city}}</td>
+	                                    <td style="text-align: center;">{{search.date}}
+	                                    	<br>{{search.time}}</td>
+	                                </tr>
+						 		</table>
+						 	</div>
+						 </div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	
+	<!-- Angular.js -->
+	<script src="bower_components/angular/angular.js"></script>
+	<!-- jQuery -->
+	<script src="//code.jquery.com/jquery.js"></script>
+	<!-- Bootstrap JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>  
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="app/app.module.js"></script>
+	<script src="app/home/home.controller.js"></script>
+	<!-- Angular-toastr-->
+	<script type="text/javascript" src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+</body>
+</html>
